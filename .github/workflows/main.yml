@@ -11,7 +11,11 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v3
+    - name: Install pandoc
+      run: sudo apt-get install pandoc
+    - name: Convert files
+      run: find ./src/_raw -name \*.docx -type f -exec pandoc --from=docx --to=markdown --output={}.md {} \;
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v3
-    - name: Install pandoc
-      run: apt-get install pandoc
+    - name: Copy new files
+      run: find ./src/_raw -name \*.md -exec bash -c 'mv ./src/_raw/$1 ./src/posts/${1%.docx.md}.md'
