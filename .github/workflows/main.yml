@@ -8,14 +8,32 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v3
     - name: Install pandoc
       run: sudo apt-get install pandoc
     - name: Convert files
-      run: find ./src/_raw -name \*.docx -type f -exec pandoc --from=docx --to=markdown --output={}.md {} \;
+      # https://stackoverflow.com/a/10323583
+      run: find ./src/_raw -name \*.docx -type f -exec pandoc -f docx -t markdown -s -o {}.md -M title:"{}" {} \;
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v3
     - name: Copy new files
       run: mv ./src/_raw/*.md ./src/posts
+    - name: Prepare NPM
+      run: npm install
+    - name: Build
+      run: npm run build
+    - name: Push to pages
+      run: |
+        git worktree add gh-pages
+        git config user.name "Deploy from CI"
+        git config user.email ""
+        cd gh-pages
+        # Delete the ref to avoid keeping history.
+        git update-ref -d refs/heads/gh-pages
+        rm -rf *
+        mv ../dev/* .
+        git add .
+        git commit -m "Deploy $GITHUB_SHA to gh-pages"
+        git push --set-upstream origin gh-pages --force
