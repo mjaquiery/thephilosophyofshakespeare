@@ -4,6 +4,10 @@ const rssPlugin = require('@11ty/eleventy-plugin-rss');
 const Image = require("@11ty/eleventy-img");
 const EleventyFetch = require("@11ty/eleventy-fetch");
 
+// Markdown plugins
+const mdBrackets = require("markdown-it-bracketed-spans");
+const mdAttrs = require("markdown-it-attrs");
+
 module.exports = function(eleventyConfig) {
   // Universal Shortcodes (Adds to Liquid, Nunjucks, Handlebars)
   eleventyConfig.addShortcode("bgImg", function(imgName, test) {
@@ -72,6 +76,10 @@ module.exports = function(eleventyConfig) {
       zone: 'utc'
     }).toFormat('yyyy-LL-dd');
   });
+
+  eleventyConfig.amendLibrary("md", mdLib => mdLib.use(mdBrackets));
+  eleventyConfig.amendLibrary("md", mdLib => mdLib.use(mdAttrs));
+
   return {
     dir: {
       input: "src",
