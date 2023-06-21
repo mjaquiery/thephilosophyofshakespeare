@@ -18,4 +18,4 @@ jobs:
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v3
     - name: Copy new files
-      run: find ./src/_raw -name \*.md -exec bash -c 'mv ./src/_raw/$1 ./src/posts/${1%.docx.md}.md'
+      run: mv ./src/_raw/*.md ./src/posts
