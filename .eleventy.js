@@ -5,8 +5,19 @@ const Image = require("@11ty/eleventy-img");
 const EleventyFetch = require("@11ty/eleventy-fetch");
 
 // Markdown plugins
-const mdBrackets = require("markdown-it-bracketed-spans");
-const mdAttrs = require("markdown-it-attrs");
+const md_brackets = require("markdown-it-bracketed-spans");
+const md_attrs = require("markdown-it-attrs");
+const md_container = require('markdown-it-container');
+const md_deflist = require('markdown-it-deflist');
+const md_footnote = require('markdown-it-footnote');
+const md_figures = require('markdown-it-implicit-figures');
+const md_gridtables = require('markdown-it-gridtables');
+const md_sub = require('markdown-it-sub');
+const md_sup = require('markdown-it-sup');
+const md_lists = require('markdown-it-task-lists');
+const md_texmath = require('markdown-it-texmath');
+const md_katex = require('katex');
+const md_mathjax3 = require('markdown-it-mathjax3');
 
 module.exports = function(eleventyConfig) {
   // Universal Shortcodes (Adds to Liquid, Nunjucks, Handlebars)
@@ -77,8 +88,19 @@ module.exports = function(eleventyConfig) {
     }).toFormat('yyyy-LL-dd');
   });
 
-  eleventyConfig.amendLibrary("md", mdLib => mdLib.use(mdBrackets));
-  eleventyConfig.amendLibrary("md", mdLib => mdLib.use(mdAttrs));
+  eleventyConfig.amendLibrary("md", mdLib => mdLib.use(md_brackets));
+  eleventyConfig.amendLibrary("md", mdLib => mdLib.use(md_attrs));
+  eleventyConfig.amendLibrary("md", mdLib => mdLib.use(md_container));
+  eleventyConfig.amendLibrary("md", mdLib => mdLib.use(md_deflist));
+  eleventyConfig.amendLibrary("md", mdLib => mdLib.use(md_footnote));
+  eleventyConfig.amendLibrary("md", mdLib => mdLib.use(md_figures));
+  eleventyConfig.amendLibrary("md", mdLib => mdLib.use(md_gridtables));
+  eleventyConfig.amendLibrary("md", mdLib => mdLib.use(md_sub));
+  eleventyConfig.amendLibrary("md", mdLib => mdLib.use(md_sup));
+  eleventyConfig.amendLibrary("md", mdLib => mdLib.use(md_lists));
+  eleventyConfig.amendLibrary("md", mdLib => mdLib.use(md_texmath));
+  eleventyConfig.amendLibrary("md", mdLib => mdLib.use(md_katex));
+  eleventyConfig.amendLibrary("md", mdLib => mdLib.use(md_mathjax3));
 
   return {
     dir: {
