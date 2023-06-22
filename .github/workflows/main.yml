@@ -24,7 +24,9 @@ jobs:
 #    - name: Setup tmate session
 #      uses: mxschmitt/action-tmate@v3
     - name: Copy new files
-      run: mv ./src/_raw/*.docx.* ./src/posts
+      run: mv ./src/_raw/*.docx.md ./src/posts
+    - name: Copy new files
+      run: mv ./src/_raw/*.docx.html ./src/posts
     - name: Rename files
       run: python ./_python/rename_files.py
     - name: Prepare NPM

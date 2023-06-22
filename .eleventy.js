@@ -94,12 +94,12 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.amendLibrary("md", mdLib => mdLib.use(md_deflist));
   eleventyConfig.amendLibrary("md", mdLib => mdLib.use(md_footnote));
   eleventyConfig.amendLibrary("md", mdLib => mdLib.use(md_figures));
-  eleventyConfig.amendLibrary("md", mdLib => mdLib.use(md_gridtables));
+  // eleventyConfig.amendLibrary("md", mdLib => mdLib.use(md_gridtables));
   eleventyConfig.amendLibrary("md", mdLib => mdLib.use(md_sub));
   eleventyConfig.amendLibrary("md", mdLib => mdLib.use(md_sup));
   eleventyConfig.amendLibrary("md", mdLib => mdLib.use(md_lists));
   eleventyConfig.amendLibrary("md", mdLib => mdLib.use(md_texmath));
-  eleventyConfig.amendLibrary("md", mdLib => mdLib.use(md_katex));
+  // eleventyConfig.amendLibrary("md", mdLib => mdLib.use(md_katex));
   eleventyConfig.amendLibrary("md", mdLib => mdLib.use(md_mathjax3));
 
   return {
