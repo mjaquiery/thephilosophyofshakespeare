@@ -10,3 +10,8 @@ for root, dirs, files in os.walk('./src/_raw'):
             if os.path.isfile(md_file):
                 os.remove(docx_file)
                 print('Removed: ' + docx_file)
+                continue
+            # Run pandoc via command line to convert .docx to .md
+            title = file.replace('.docx', '')
+            filename_without_ext = os.path.splitext(docx_file)[0]
+            os.system(f'pandoc -f docx -t markdown -s -o "{filename_without_ext}.md" -M title:"{title}" "{docx_file}"')

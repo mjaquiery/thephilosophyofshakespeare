@@ -18,9 +18,9 @@ jobs:
 #    - name: Convert files
 #      # https://stackoverflow.com/a/10323583
 #      run: find ./src/_raw -name \*.docx -type f -exec pandoc -f docx -t markdown -s -o "{}.md" -M title:"{}" "{}" \;
-    - name: Convert files
-      # https://stackoverflow.com/a/10323583
-      run: find ./src/_raw -name \*.docx -type f -exec pandoc -f docx -t html -s -o "{}.html" -M title:"{}" "{"} \;
+#    - name: Convert files
+#      # https://stackoverflow.com/a/10323583
+#      run: find ./src/_raw -name \*.docx -type f -exec pandoc -f docx -t html -s -o "{}.html" -M title:"{}" "{"} \;
 #    - name: Setup tmate session
 #      uses: mxschmitt/action-tmate@v3
     - name: Copy new files
