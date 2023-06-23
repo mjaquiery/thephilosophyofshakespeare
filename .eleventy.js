@@ -26,9 +26,13 @@ module.exports = function(eleventyConfig) {
   });
 
   // blogposts collection
-    eleventyConfig.addCollection("components", function (collection) {
-      return collection.getFilteredByGlob("./src/components/*.njk").reverse();
-    });
+  eleventyConfig.addCollection("components", function (collection) {
+    return collection.getFilteredByGlob("./src/components/*.njk").reverse();
+  });
+
+  eleventyConfig.addCollection("posts", function (collection) {
+    return collection.getFilteredByGlob("./src/posts/*.md").reverse();
+  });
 
   function filterTagList(tags) {
     return (tags || []).filter(tag => ["all", "nav"].indexOf(tag) === -1);
@@ -46,14 +50,14 @@ module.exports = function(eleventyConfig) {
     collection.getAll().forEach(item => {
       if (!item.data.tags) return;
       item.data.tags
-        .filter(tag => !['post', 'all'].includes(tag))
-        .forEach(tag => {
-          if(typeof tagsObject[tag] === 'undefined') {
-            tagsObject[tag] = 1
-          } else {
-            tagsObject[tag] += 1
-          }
-        });
+          .filter(tag => !['post', 'all'].includes(tag))
+          .forEach(tag => {
+            if(typeof tagsObject[tag] === 'undefined') {
+              tagsObject[tag] = 1
+            } else {
+              tagsObject[tag] += 1
+            }
+          });
     });
 
     const tagList = []
@@ -79,7 +83,7 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addCollection('componentstotal', (collection) => {
     return collection.getFilteredByGlob('_components/**/*.njk');
-});
+  });
 
   // https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#valid-date-string
   eleventyConfig.addFilter('htmlDateString', (dateObj) => {
