@@ -15,18 +15,12 @@ jobs:
       run: sudo apt-get install pandoc
     - name: Prep files
       run: python ./_python/prep_files.py
-#    - name: Convert files
-#      # https://stackoverflow.com/a/10323583
-#      run: find ./src/_raw -name \*.docx -type f -exec pandoc -f docx -t markdown -s -o "{}.md" -M title:"{}" "{}" \;
-#    - name: Convert files
-#      # https://stackoverflow.com/a/10323583
-#      run: find ./src/_raw -name \*.docx -type f -exec pandoc -f docx -t html -s -o "{}.html" -M title:"{}" "{"} \;
 #    - name: Setup tmate session
 #      uses: mxschmitt/action-tmate@v3
     - name: Copy new files
-      run: mv ./src/_raw/*.docx.md ./src/posts || true
+      run: mv ./src/_raw/*.md ./src/posts || true
     - name: Copy new files
-      run: mv ./src/_raw/*.docx.html ./src/posts || true
+      run: mv ./src/_raw/*.html ./src/posts || true
     - name: Rename files
       run: python ./_python/rename_files.py
     - name: Prepare NPM
