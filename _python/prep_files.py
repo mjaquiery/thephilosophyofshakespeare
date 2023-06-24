@@ -13,10 +13,11 @@ for root, dirs, files in os.walk('./src/_raw'):
                 continue
             # Run pandoc via command line to convert .docx to .md
             title = file.replace('.docx', '')
-            filename_without_ext = os.path.splitext(docx_file)[0]
+            filename_without_ext = os.path.splitext(docx_file)[0].replace('\\', '')
             metadata = {
                 'title': title,
-                'layout': 'post',
+                'layout': 'layouts/post.njk',
+                'footer': 'footer1'
             }
             metadata_str = ' '.join([f'-M {key}="{value}"' for key, value in metadata.items()])
             os.system(f'pandoc -f docx -t markdown -s -o "{filename_without_ext}.md" {metadata_str} "{docx_file}"')
