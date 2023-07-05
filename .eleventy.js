@@ -114,7 +114,7 @@ module.exports = function(eleventyConfig) {
       input: "src",
       output: "dev"
     },
-    // pathPrefix: "/thephilosophyofshakespeare/"  // doesn't seem to work!
+    pathPrefix: "/thephilosophyofshakespeare/"  // doesn't seem to work!
   };
 
 
