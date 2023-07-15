@@ -1,7 +1,8 @@
 # Debug main.yml
 FROM ghcr.io/catthehacker/ubuntu:act-22.04
 RUN apt-get update
-RUN apt-get install -y pandoc
+RUN apt-get install -y pandoc pip
+RUN pip install python-docx
 # RUN git clone https://github.com/mjaquiery/thephilosophyofshakespeare.git
 COPY . thephilosophyofshakespeare
 WORKDIR thephilosophyofshakespeare
