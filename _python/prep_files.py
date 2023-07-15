@@ -16,7 +16,8 @@ for root, dirs, files in os.walk('./src/_raw'):
             # Extract metadata from the .docx file
             doc = docx.Document(docx_file)
             filename_without_ext = os.path.splitext(docx_file)[0].replace('\\', '')
-            title = doc.core_properties.title if doc.core_properties.title != '' else filename_without_ext
+            title = doc.core_properties.title if doc.core_properties.title != '' else \
+                os.path.basename(filename_without_ext)
             metadata = {
                 'title': title,
                 'author': "Richard Burrow",
