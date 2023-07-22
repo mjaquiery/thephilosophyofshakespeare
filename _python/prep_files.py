@@ -6,11 +6,11 @@ import docx
 
 # Walk through .docx files in ./src/_raw and remove those with corresponding
 # .md files in ./src/posts
-for root, dirs, files in os.walk('./src/_raw'):
+for root, dirs, files in os.walk('./src/_raw/publish'):
     for file in files:
         if file.endswith('.docx'):
             docx_file = os.path.join(root, file)
-            md_file = os.path.join('./src/posts', f"{file}.md")
+            md_file = os.path.join('./src/posts/publish', f"{file}.md")
             if os.path.isfile(md_file):
                 os.remove(docx_file)
                 print('Removed: ' + docx_file)
@@ -29,6 +29,7 @@ for root, dirs, files in os.walk('./src/_raw'):
                 'date': doc.core_properties.modified.strftime("%Y-%m-%d"),
                 'created': doc.core_properties.created.strftime("%Y-%m-%d"),
             }
+            print(metadata)
             metadata_file_path = tempfile.mktemp('.json')
             with open(metadata_file_path, 'w+') as metadata_file:
                 metadata_file.write('---\n')
