@@ -4,6 +4,12 @@ const rssPlugin = require('@11ty/eleventy-plugin-rss');
 const Image = require("@11ty/eleventy-img");
 const EleventyFetch = require("@11ty/eleventy-fetch");
 const { EleventyHtmlBasePlugin } = require("@11ty/eleventy");
+// For enabling the markdownify filter to handle markdown titles
+const md = require("markdown-it")({
+  html: false,
+  breaks: true,
+  linkify: true,
+});
 
 // Markdown plugins
 const md_brackets = require("markdown-it-bracketed-spans");
@@ -108,6 +114,10 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.amendLibrary("md", mdLib => mdLib.use(md_texmath));
   // eleventyConfig.amendLibrary("md", mdLib => mdLib.use(md_katex));
   eleventyConfig.amendLibrary("md", mdLib => mdLib.use(md_mathjax3));
+
+  eleventyConfig.addNunjucksFilter("markdownify", (markdownString) =>
+      md.render(markdownString)
+  );
 
   return {
     dir: {
