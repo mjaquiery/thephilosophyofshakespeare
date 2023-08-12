@@ -115,11 +115,13 @@ module.exports = function(eleventyConfig) {
   // eleventyConfig.amendLibrary("md", mdLib => mdLib.use(md_katex));
   eleventyConfig.amendLibrary("md", mdLib => mdLib.use(md_mathjax3));
 
-  eleventyConfig.addNunjucksFilter("markdownify", (markdownString) =>
-      md.render(markdownString)
-  );
+  eleventyConfig.addNunjucksFilter("markdownify", (markdownString) => {
+    console.log("markdownString", markdownString)
+    return md.render(markdownString)
+  });
 
   return {
+    markdownTemplateEngine: 'njk',
     dir: {
       input: "src",
       output: "dev"

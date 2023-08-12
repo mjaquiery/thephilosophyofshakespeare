@@ -22,7 +22,7 @@ for root, dirs, files in os.walk('./src/_raw'):
             title = doc.core_properties.title if doc.core_properties.title != '' else \
                 os.path.basename(filename_without_ext)
             metadata = {
-                'title': title,
+                'plain-title': title,
                 'author': "Richard Burrow",
                 'layout': 'layouts/post.njk',
                 'footer': 'footer1',
@@ -30,11 +30,24 @@ for root, dirs, files in os.walk('./src/_raw'):
                 'created': doc.core_properties.created.strftime("%Y-%m-%d"),
             }
             print(metadata)
-            metadata_file_path = tempfile.mktemp('.json')
+            metadata_file_path = tempfile.mktemp('.yaml')
             with open(metadata_file_path, 'w+') as metadata_file:
                 metadata_file.write('---\n')
                 yaml.dump(metadata, metadata_file)
                 metadata_file.write('---\n')
             # Run pandoc via command line to convert .docx to .md
-            os.system(f"pandoc -f docx -t markdown -s -o \"{filename_without_ext}.md\" -H {metadata_file_path} \"{docx_file}\"")
+            os.system(f"pandoc -f docx -t markdown -o \"{filename_without_ext}.md\" -H {metadata_file_path} \"{docx_file}\"")
             os.remove(metadata_file_path)
+            # Tidy up duplicated metadata header
+            with open(f"{filename_without_ext}.md", 'r') as md_file:
+                lines = md_file.readlines()
+                metadata_markers = []
+                for i, line in enumerate(lines):
+                    if line == '---\n':
+                        metadata_markers.append(i)
+                if len(metadata_markers) > 2:
+                    markers_to_remove = metadata_markers[1:-1]
+                    for marker in markers_to_remove:
+                        lines[marker] = f"# {lines[marker]}"
+            with open(f"{filename_without_ext}.md", 'w') as md_file:
+                md_file.writelines(lines)

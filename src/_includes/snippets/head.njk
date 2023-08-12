@@ -8,7 +8,7 @@
   <meta name="author" content="{{ metadata.author }}">
   <meta name="generator" content="{{ eleventy.generator }}">
   <meta name="HandheldFriendly" content="true"/>
-  <title>{{ title or metadata.title }}</title>
+  <title>{{ plain-title or title or metadata.plain-title or metadata.title }}</title>
   <!-- build:css -->
   <link rel="stylesheet" href="{{ '/css/theme.css'  }}">
    <!-- endbuild -->

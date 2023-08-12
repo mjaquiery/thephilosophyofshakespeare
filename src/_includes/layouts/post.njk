@@ -10,7 +10,7 @@
         <div class="col-12 col-lg-10 col-xl-6">
           {% if author %}<small class="text-muted">By
             {{ author }}</small>{% endif %}
-          <h1 class="display-huge">{{ title }}</h1>
+          <h1 class="display-huge">{{ title | markdownify | safe }}</h1>
           <p class="lead pt-2 py-vh-2 {% if img %}{% else %}border-bottom{% endif %}">{{summary}}</p>
         </div>
         {% if img %}
