@@ -5,7 +5,7 @@ services:
     build:
       dockerfile: .github/workflows/Dockerfile
     volumes:
-      - .:/tmp/thephilosophyofshakespeare
+      - .:/tmp/philosophyofshakespeare
     ports:
       - "8080:8080"
 #    environment:
