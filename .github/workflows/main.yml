@@ -41,6 +41,7 @@ jobs:
         git update-ref -d refs/heads/gh-pages
         rm -rf *
         mv ../dev/* .
+        echo "philosophyofshakespeare.com" > CNAME
         git add .
         git commit -m "Deploy $GITHUB_SHA to gh-pages"
         git push --set-upstream origin gh-pages --force
