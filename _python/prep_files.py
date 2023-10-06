@@ -26,7 +26,7 @@ for root, dirs, files in os.walk('./src/_raw'):
             match = re.search(r'(\d{4}-\d{2}-\d{2})_?(.*)', filename_without_ext)
             if match:
                 date = match.group(1)
-                filename_without_ext = os.path.join(os.path.basename(filename_without_ext), match.group(2))
+                filename_without_ext = os.path.join(os.path.dirname(filename_without_ext), match.group(2))
 
             title = doc.core_properties.title if doc.core_properties.title != '' else \
                 os.path.basename(filename_without_ext)
