@@ -58,5 +58,6 @@ for root, dirs, files in os.walk('./src/_raw'):
                     markers_to_remove = metadata_markers[1:-1]
                     for marker in markers_to_remove:
                         lines[marker] = f"# {lines[marker]}"
-            with open(f"{filename_without_ext}.md", 'w') as md_file:
+            with open(f"{filename_without_ext}.md", 'w+') as md_file:
                 md_file.writelines(lines)
+                print('Converted: ' + docx_file + ' to ' + os.path.abspath(filename_without_ext) + '.md')
