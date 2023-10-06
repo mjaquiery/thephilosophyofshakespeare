@@ -1,12 +1,21 @@
----
-title: The Philosophy of Shakespeare
-layout: layouts/default.njk
-footer: footer1
+---js
+{
+title: "The Philosophy of Shakespeare"
+layout: "layouts/default.njk"
+footer: "footer1"
 pagination:
-    data: collections.posts
+    data: "collections.posts"
     size: 5
-    reverse: true
-    alias: posts
+    reverse: false
+    alias: "posts"
+    before: function(paginationData, fullData) {
+      // `fullData` is new in v1.0.1 and contains the full Data Cascade thus far
+
+      return paginationData.sort((a, b) => {
+        return new Date(b.date) - new Date(a.date);
+      });
+    }
+}
 ---
 <div class="w-100 overflow-hidden position-relative" id="top">
   {% include "snippets/hero2.njk" %}
