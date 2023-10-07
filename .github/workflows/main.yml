@@ -5,6 +5,12 @@ on:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      debug_enabled:
+        type: boolean
+        description: 'Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)'
+        required: false
+        default: false
 
 jobs:
   build:
@@ -27,10 +33,11 @@ jobs:
       run: python ./_python/rename_files.py
     - name: Prepare NPM
       run: npm install
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
+      if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
     - name: Build
       run: npm run build
-#    - name: Setup tmate session
-#      uses: mxschmitt/action-tmate@v3
     - name: Push to pages
       run: |
         git worktree add gh-pages
