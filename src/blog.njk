@@ -1,20 +1,21 @@
 ---js
-title: "All Essays",
-layout: "layouts/default.njk",
-footer: "footer1",
-pagination: {
-  data: "collections.posts",
-  size: 10,
-  reverse: false,
-  alias: "posts",
-  before: function (paginationData, fullData) {
-    // `fullData` is new in v1.0.1 and contains the full Data Cascade thus far
+{
+    title: "All Essays",
+    layout: "layouts/default.njk",
+    footer: "footer1",
+    pagination: {
+      data: "collections.posts",
+      size: 10,
+      reverse: false,
+      alias: "posts",
+      before: function (paginationData, fullData) {
+        // `fullData` is new in v1.0.1 and contains the full Data Cascade thus far
 
-    return paginationData.sort((a, b) => {
-      return new Date(b.date) - new Date(a.date);
-    });
-  }
-}
+        return paginationData.sort((a, b) => {
+          return new Date(b.date) - new Date(a.date);
+        });
+      }
+    }
 }
 ---
 
