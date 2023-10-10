@@ -1,6 +1,10 @@
-<footer>
+<footer class="d-flex">
   <div class="container text-center small py-vh-3">Made by
     <a href="https://templatedeck.com" class="link-fancy" target="_blank">templatedeck.com</a>
+  </div>
+  <div class="container text-center small py-vh-3">
+    <button class="btn" onclick="document.getElementById("cookie-banner").style.display = 'block';">
+      Cookie Policy</button>
   </div>
   {% if footerScripts %}
   <script src="{{ '/js/bootstrap.bundle.min.js'  }}"></script>
