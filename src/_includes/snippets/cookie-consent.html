@@ -18,7 +18,7 @@
 </aside>
 <script type="text/javascript">
     function closeCookieBanner(cookie_consent = "true") {
-        const reload = cookie_consent === "true" && localStorage.getItem("cookie_consent") !== "true"
+        const reload = cookie_consent !== localStorage.getItem("cookie_consent")
         localStorage.setItem("cookie_consent", cookie_consent);
         document.getElementById("cookie-banner").style.display = "none";
         if (reload) {
