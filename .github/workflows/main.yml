@@ -1,0 +1,54 @@
+name: "Convert and upload"
+
+on:
+  push: 
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      debug_enabled:
+        type: boolean
+        description: 'Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)'
+        required: false
+        default: false
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install pandoc
+      run: sudo apt-get install pandoc
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    - run: pip install python-docx PyYAML
+    - name: Prep files
+      run: python ./_python/prep_files.py
+    - name: Copy new files
+      run: mv ./src/_raw/*.md ./src/posts || true
+    - name: Copy new files
+      run: mv ./src/_raw/*.html ./src/posts || true
+    - name: Rename files
+      run: python ./_python/rename_files.py
+    - name: Prepare NPM
+      run: npm install
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
+      if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
+    - name: Build
+      run: npm run build
+    - name: Push to pages
+      run: |
+        git worktree add gh-pages
+        git config user.name "Deploy from CI"
+        git config user.email ""
+        cd gh-pages
+        # Delete the ref to avoid keeping history.
+        git update-ref -d refs/heads/gh-pages
+        rm -rf *
+        mv ../dev/* .
+        echo "philosophyofshakespeare.com" > CNAME
+        git add .
+        git commit -m "Deploy $GITHUB_SHA to gh-pages"
+        git push --set-upstream origin gh-pages --force
